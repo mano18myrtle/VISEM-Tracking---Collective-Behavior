@@ -32,9 +32,11 @@ Pretrained weights for training: https://github.com/ultralytics/ultralytics
 
    Uses a sharpening kernel to enhance fine details without excessive noise amplification.
 
-   Kernel applied: [[0, -1, 0], 
-                   [-1, 5, -1], 
-                   [0, -1, 0]]
+   Kernel applied:
+   
+                     [[0, -1, 0], 
+                     [-1, 5, -1], 
+                      [0, -1, 0]]
 
 **Other Preprocessing methods which were performed**
 1. Background Subtraction:
