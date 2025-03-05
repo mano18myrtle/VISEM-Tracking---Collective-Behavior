@@ -27,5 +27,20 @@ Pretrained weights for training: https://github.com/ultralytics/ultralytics
                      [-1, 5, -1], 
                      [0, -1, 0]]
 
-
-​
+**Other Preprocessing methods which were performed**
+1. Background Subtraction:
+   Remove uneven backgrounds caused by illumination variation
+   Use polynomial fitting methods or grayscale morphology operations
+2. Thresholding:
+   Identifies object on an image/removes noise
+   Adaptive thresholding-segment sperm heads from background
+3. Opening-Closing Steps:
+   Apply morphological opening to remove small objects and smooth boundaries
+   Closing- To fill small holes and connect nearby objects
+4. Erosion/Dilation:
+   Erosion - To shrinnk objects and seperate connected components
+   Dilation - To grow objects and fill small gaps
+5. Contrast Enhancement:
+   Improves image contrast, to highlight sperm structures
+6. Noise Reduction:
+​   Filtering techniques to remove artifacts
