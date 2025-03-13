@@ -113,3 +113,12 @@ Structure the dataset following the data yaml file:
       │── data.yaml  # The YAML configuration file
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Training the Model**
+
+Once the dataset is prepared, we can the train the model with a pretrained weight (I have used yolos.pt)
+In a notebook, run the below code, update the dataset location:
+
+      !yolo task=detect mode=train model=yolo11s.pt data={dataset.location}/data.yaml epochs=300 imgsz=640 plots=True
+
+Alter the parameters for your choice.
+Post the train completion, results would be logged to *runs/detect/train*
