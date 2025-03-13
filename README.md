@@ -4,6 +4,7 @@ VISEM Tracking Dataset Link: https://zenodo.org/records/7293726
 
 Pretrained weights for training: https://github.com/ultralytics/ultralytics
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Steps Taken for Image Preprocessing**
 
 1. Denoising with Bilateral Filtering
@@ -70,3 +71,45 @@ Pretrained weights for training: https://github.com/ultralytics/ultralytics
 6. Noise Reduction:
 
    Filtering techniques to remove artifacts
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Dataset Preparation for Model Training**
+
+Prepare a data yaml file in the format:
+
+      # Define the number of classes
+      nc: 3 
+
+      # Define the number of classes
+      names: ["Normal Sperm", "Cluster", "Pinhead Sperm"] 
+      
+      # Paths to dataset directories
+      train: /path/to/train/images  # Path to training images
+      val: /path/to/val/images  # Path to validation images
+      test: /path/to/test/images  # (Optional) Path to test images
+
+Structure the dataset following the data yaml file: 
+
+      /dataset_root/
+      │── train/
+      │   ├── images/
+      │   │   ├── img1.jpg
+      │   │   ├── img2.jpg
+      │   │   ├── ...
+      │   ├── labels/
+      │   │   ├── img1.txt
+      │   │   ├── img2.txt
+      │   │   ├── ...
+      │
+      │── val/
+      │   ├── images/
+      │   ├── labels/
+      │
+      │── test/  # (Optional)
+      │   ├── images/
+      │   ├── labels/
+      │
+      │── data.yaml  # The YAML configuration file
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
