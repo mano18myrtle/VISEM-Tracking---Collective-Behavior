@@ -122,3 +122,19 @@ In a notebook, run the below code, update the dataset location:
 
 Alter the parameters for your choice.
 Post the train completion, results would be logged to *runs/detect/train*
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Validating the Model**
+
+      !yolo task=detect mode=val \
+          model=/home/user/ml_env/runs/detect/Train/weights/best.pt \
+          data={dataset.location}/data.yaml \
+          imgsz=640 \
+          batch=16 \
+          conf=0.25 \
+          iou=0.6 \
+          plots=True \
+          save_txt \
+          save_conf \
+          name=Validate
+Results would be stored in *runs/detect/val*
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
