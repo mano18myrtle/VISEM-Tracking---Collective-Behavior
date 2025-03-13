@@ -7,6 +7,8 @@ Pretrained weights for training: https://github.com/ultralytics/ultralytics
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Steps Taken for Image Preprocessing**
 
+Note: Refer Preprocessing_script.ipynb and Batch_Processing.ipynb
+
 1. Denoising with Bilateral Filtering
 
    Reduces noise while preserving edges (better than Gaussian blur).
@@ -40,6 +42,9 @@ Pretrained weights for training: https://github.com/ultralytics/ultralytics
                       [0, -1, 0]]
 
 **Other Preprocessing methods which were performed**
+
+Note: Setting_up_and_Classic_methods.ipynb, Classic methods.ipynb and Diff Preprocessing.ipynb
+
 1. Background Subtraction:
 
    Remove uneven backgrounds caused by illumination variation
@@ -112,16 +117,19 @@ Structure the dataset following the data yaml file:
       │
       │── data.yaml  # The YAML configuration file
 
+Note: Refer VISEM_Model_Training.ipynb for the Model Training using YOLOv11 
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Training the Model**
 
 Once the dataset is prepared, we can the train the model with a pretrained weight (I have used yolos.pt)
+Download the appropriate pretrained weight for your model.
 In a notebook, run the below code, update the dataset location:
 
       !yolo task=detect mode=train model=yolo11s.pt data={dataset.location}/data.yaml epochs=300 imgsz=640 plots=True
 
 Alter the parameters for your choice.
-Post the train completion, results would be logged to *runs/detect/train*
+Post the train completion, trained weights and the results would be logged to *runs/detect/train*
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Validating the Model**
@@ -157,7 +165,7 @@ Results would be stored in */home/user/ml_env/runs/detect/Test*
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 With above three steps, we can evaluate the performace of the training with the help of the performance metrics
 
-*1. Graphs:*
+*1. Graphs*
 
 Losses: Box loss, Classification loss, DFL loss. Decreasing loss → Model is improving.
 
@@ -220,5 +228,8 @@ Peak F1-score indicates the best balance between precision and recall.
 
 Helps identify if features are too similar or distribution is unstructured.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**Sperm Detection**
 
 
