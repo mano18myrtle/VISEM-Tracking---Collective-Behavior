@@ -272,7 +272,7 @@ Processes each frame:
       Runs YOLO inference.
       Counts occurrences of each sperm type.
       Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
-      Saves the detection count summary to a CSV file.
+Saves the detection count summary to a CSV file.
 
 Output:
 
