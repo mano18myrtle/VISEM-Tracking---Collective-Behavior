@@ -243,13 +243,14 @@ Workflow:
  Loads the trained model.
  Reads images from the input directory.
  Runs YOLO inference to detect:
+ 
       Normal Sperm
       Cluster
       Pinhead Sperm
-   Saves:
-    Detection results in a CSV file (frame, x_min, y_min, x_max, y_max, confidence, class_id).
-    Annotated images in the output directory.
-    Displays total counts per frame on the image.
+Saves:
+   Detection results in a CSV file (frame, x_min, y_min, x_max, y_max, confidence, class_id).
+   Annotated images in the output directory.
+   Displays total counts per frame on the image.
 
 Output:
 
@@ -267,10 +268,11 @@ Workflow:
 Loads the trained model.
 Opens the input video file.
 Processes each frame:
-   Runs YOLO inference.
-   Counts occurrences of each sperm type.
-   Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
-Saves the detection count summary to a CSV file.
+
+      Runs YOLO inference.
+      Counts occurrences of each sperm type.
+      Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
+      Saves the detection count summary to a CSV file.
 
 Output:
 
