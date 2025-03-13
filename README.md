@@ -122,6 +122,7 @@ In a notebook, run the below code, update the dataset location:
 
 Alter the parameters for your choice.
 Post the train completion, results would be logged to *runs/detect/train*
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Validating the Model**
 
@@ -137,4 +138,57 @@ Post the train completion, results would be logged to *runs/detect/train*
           save_conf \
           name=Validate
 Results would be stored in *runs/detect/val*
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Testing the Model**
+
+      !yolo task=detect mode=predict \
+          model=/home/user/ml_env/runs/detect/Train/weights/best.pt \
+          conf=0.25 \
+          source={dataset.location}/test/images \
+          save=True \
+          save_txt=True \
+          save_conf=True \
+          project=/home/user/ml_env/runs/detect \
+          name=Test \
+          exist_ok=True
+Results would be stored in */home/user/ml_env/runs/detect/Test*
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+With above three steps, we can evaluate the performace of the training with the help of the performance metrics
+*1. Graphs:*
+Losses: Box loss, Classification loss, DFL loss.
+Precision: How well the model avoids false positives.
+Recall: How well the model detects true positives.
+mAP50: Mean Average Precision at 50% IoU (Intersection over Union).
+mAP50-95: mAP at different IoU thresholds (strict evaluation).                                                                                                                                       Interpreting results:
+1. Decreasing loss → Model is improving.
+2. Stable high mAP → Good detection performance.
+3. High precision, low recall → Model is conservative in detection.
+4. Low precision, high recall → Model detects too many false positives.
+
+*2. Confusion Matrix*
+A table that shows actual vs. predicted classifications.
+True Positives (TP) → Correct detections.
+False Positives (FP) → Incorrect detections (wrong class).
+False Negatives (FN) → Missed detections.
+Diagonal values should be high, indicating correct classifications.
+Off-diagonal values indicate misclassifications.
+
+*3. Confusion Matrix Normalized*
+A version of the confusion matrix where values are scaled between 0 and 1.
+Helps in comparing class-wise performance, especially when class distributions are imbalanced.
+High diagonal values (close to 1) → Good classification performance.
+Off-diagonal values → Areas where misclassifications occur frequently.
+
+*4. Label Correlogram*
+A visualization of how different label parameters relate.
+Parameters include:
+
+    X, Y (bounding box center coordinates).
+    Width, Height (bounding box size).
+
+High correlation values (~1.0) → Labels are highly related (possible redundancy).
+Low correlation values (~0.0) → Labels are independent (good diversity in dataset).
+Helps identify if features are too similar or distribution is unstructured.
+
