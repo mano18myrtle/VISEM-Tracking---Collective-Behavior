@@ -240,21 +240,21 @@ Detect sperm cells in image frames using the trained model. Draw bounding boxes 
 
 Workflow:
 
-    Loads the trained model.
-    Reads images from the input directory.
-    Runs YOLO inference to detect:
-        Normal Sperm
-        Cluster
-        Pinhead Sperm
-    Saves:
-        Detection results in a CSV file (frame, x_min, y_min, x_max, y_max, confidence, class_id).
-        Annotated images in the output directory.
+ Loads the trained model.
+ Reads images from the input directory.
+ Runs YOLO inference to detect:
+      Normal Sperm
+      Cluster
+      Pinhead Sperm
+   Saves:
+    Detection results in a CSV file (frame, x_min, y_min, x_max, y_max, confidence, class_id).
+    Annotated images in the output directory.
     Displays total counts per frame on the image.
 
 Output:
 
-    Annotated images in /Detection/<video_id>/images/
-    Detection results in /Detection/<video_id>/<video_id>.csv
+   Annotated images in /Detection/<video_id>/images/
+   Detection results in /Detection/<video_id>/<video_id>.csv
 
 *2. Validation*
 
@@ -264,15 +264,15 @@ Validate the detection performance on a video file. Count the number of detected
 
 Workflow:
 
-    Loads the trained model.
-    Opens the input video file.
-    Processes each frame:
-        Runs YOLO inference.
-        Counts occurrences of each sperm type.
-        Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
-    Saves the detection count summary to a CSV file.
+Loads the trained model.
+Opens the input video file.
+Processes each frame:
+   Runs YOLO inference.
+   Counts occurrences of each sperm type.
+   Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
+Saves the detection count summary to a CSV file.
 
 Output:
 
-    Frame-wise sperm count summary in /Detection_validation/<video_id>_detection.csv
+   Frame-wise sperm count summary in /Detection_validation/<video_id>_detection.csv
 
