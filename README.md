@@ -159,25 +159,19 @@ With above three steps, we can evaluate the performace of the training with the 
 
 *1. Graphs:*
 
-Losses: Box loss, Classification loss, DFL loss.
+Losses: Box loss, Classification loss, DFL loss. Decreasing loss → Model is improving.
 
 Precision: How well the model avoids false positives.
 
 Recall: How well the model detects true positives.
 
-mAP50: Mean Average Precision at 50% IoU (Intersection over Union).
+mAP50: Mean Average Precision at 50% IoU (Intersection over Union). 
 
-mAP50-95: mAP at different IoU thresholds (strict evaluation).                                                                                                                                       
+mAP50-95: mAP at different IoU thresholds (strict evaluation). Stable high mAP → Good detection performance. 
 
-Interpreting results:
+High precision, low recall → Model is conservative in detection.
 
-1. Decreasing loss → Model is improving.
-
-2. Stable high mAP → Good detection performance.
-
-3. High precision, low recall → Model is conservative in detection.
-
-4. Low precision, high recall → Model detects too many false positives.
+Low precision, high recall → Model detects too many false positives.
 
 *2. Confusion Matrix*
 
