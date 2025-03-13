@@ -230,6 +230,49 @@ Helps identify if features are too similar or distribution is unstructured.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Sperm Detection**
+**Sperm Detection and Validation**
 
+*1. Detection*
+
+Note: Refer detection.py
+
+Detect sperm cells in image frames using YOLOv8. Draw bounding boxes around detected objects. Save detection results (bounding box coordinates, confidence scores, class labels) in a CSV file. Generate and save annotated frames with labeled sperm detections.
+
+Workflow:
+
+    Loads the YOLOv8 model from a trained .pt file.
+    Reads images from the input directory.
+    Runs YOLO inference to detect:
+        Normal Sperm
+        Cluster
+        Pinhead Sperm
+    Saves:
+        Detection results in a CSV file (frame, x_min, y_min, x_max, y_max, confidence, class_id).
+        Annotated images in the output directory.
+    Displays total counts per frame on the image.
+
+Output:
+
+    Annotated images in /Detection/<video_id>/images/
+    Detection results in /Detection/<video_id>/<video_id>.csv
+
+*2. Validation*
+
+Note: Refer validation.py
+
+Validate the detection performance on a video file. Count the number of detected sperm cells frame by frame. Log detection counts into a CSV file for further analysis.
+
+Workflow:
+
+    Loads the trained YOLOv8 model.
+    Opens the input video file.
+    Processes each frame:
+        Runs YOLO inference.
+        Counts occurrences of each sperm type.
+        Logs frame-wise counts (frame_name, sperm_count, cluster_count, small_or_pinhead_count).
+    Saves the detection count summary to a CSV file.
+
+Output:
+
+    Frame-wise sperm count summary in /Detection_validation/<video_id>_detection.csv
 
