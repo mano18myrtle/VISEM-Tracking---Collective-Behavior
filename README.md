@@ -236,11 +236,11 @@ Helps identify if features are too similar or distribution is unstructured.
 
 Note: Refer detection.py
 
-Detect sperm cells in image frames using YOLOv8. Draw bounding boxes around detected objects. Save detection results (bounding box coordinates, confidence scores, class labels) in a CSV file. Generate and save annotated frames with labeled sperm detections.
+Detect sperm cells in image frames using the trained model. Draw bounding boxes around detected objects. Save detection results (bounding box coordinates, confidence scores, class labels) in a CSV file. Generate and save annotated frames with labeled sperm detections.
 
 Workflow:
 
-    Loads the YOLOv8 model from a trained .pt file.
+    Loads the trained model.
     Reads images from the input directory.
     Runs YOLO inference to detect:
         Normal Sperm
@@ -264,7 +264,7 @@ Validate the detection performance on a video file. Count the number of detected
 
 Workflow:
 
-    Loads the trained YOLOv8 model.
+    Loads the trained model.
     Opens the input video file.
     Processes each frame:
         Runs YOLO inference.
