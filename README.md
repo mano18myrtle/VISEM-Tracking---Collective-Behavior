@@ -258,7 +258,9 @@ Output:
 
    Annotated images in /Detection/<video_id>/images/
                
-   ![12_frame_73](https://github.com/user-attachments/assets/bf45223e-d2d0-4ea8-94e1-7ce7ba748e2a)
+   ![12_frame_73](https://github.com/user-attachments/assets/bf45223e-d2d0-4ea8-94e1-7ce7ba748e2a)   
+                                                        
+   12_frame_73
 
    Detection results in /Detection/<video_id>/<video_id>.csv
 
@@ -481,7 +483,9 @@ Output includes:
 1. Tracking visualization with bounding boxes and IDs.
 ![12_frame_0-100](https://github.com/user-attachments/assets/c6b0e359-fd0c-49d3-966d-1cedefb74082)
 
-2. CSV file with sperm trajectories.
+   12_frame_0-100
 
-3. Saved frames for further analysis.
+3. CSV file with sperm trajectories.
+
+4. Saved frames for further analysis.
    
