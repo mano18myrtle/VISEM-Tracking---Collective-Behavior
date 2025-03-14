@@ -257,6 +257,9 @@ Saves:
 Output:
 
    Annotated images in /Detection/<video_id>/images/
+               
+   ![12_frame_73](https://github.com/user-attachments/assets/bf45223e-d2d0-4ea8-94e1-7ce7ba748e2a)
+
    Detection results in /Detection/<video_id>/<video_id>.csv
 
 *2. Validation*
@@ -476,7 +479,9 @@ The system detects sperm using YOLO, tracks movement with Kalman filter, assigns
 Output includes:
 
 1. Tracking visualization with bounding boxes and IDs.
+![12_frame_0-100](https://github.com/user-attachments/assets/c6b0e359-fd0c-49d3-966d-1cedefb74082)
 
 2. CSV file with sperm trajectories.
 
 3. Saved frames for further analysis.
+   
