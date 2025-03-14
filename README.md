@@ -283,3 +283,200 @@ Output:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sperm Tracking 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Requirements
+
+    Python
+    OpenCV
+    NumPy
+    Pandas
+    SciPy
+    Ultralytics YOLO
+    FilterPy (for Kalman filter)
+    Openpyxl (for Excel logging)
+
+*1. Video Processing & Initialization*
+
+Before processing frames, we need to load the video, YOLO model, and initialize tracking structures.
+
+Code Snippet: Load Video & YOLO Model
+
+      import cv2
+      import numpy as np
+      from ultralytics import YOLO
+      from scipy.optimize import linear_sum_assignment  # Hungarian Algorithm
+
+      # Load YOLO Model (Ensure the model file is in the directory)
+      model = YOLO("yolov8s.pt")  # Replace with the trained sperm detection model
+
+      # Open Video File
+      cap = cv2.VideoCapture("sperm_video.mp4")
+
+      # Initialize tracking dictionaries
+      trackers = {}  # Stores sperm objects
+      next_id = 0  # Unique ID counter
+
+*2. Object Detection (Using YOLO)*
+
+Each frame is passed through the YOLO model to detect sperm. The model returns bounding boxes, centroids, and class labels.
+
+Code Snippet: YOLO Detection
+
+      def detect_sperm(frame):
+          detections = model(frame)[0]  # YOLO prediction
+          boxes = detections.boxes.xyxy.cpu().numpy()  # Bounding boxes
+          confidences = detections.boxes.conf.cpu().numpy()  # Confidence scores
+          class_labels = detections.boxes.cls.cpu().numpy()  # Class labels
+
+          sperm_data = []
+          for box, conf, label in zip(boxes, confidences, class_labels):
+              x1, y1, x2, y2 = box  # Bounding box coordinates
+              cx, cy = (x1 + x2) / 2, (y1 + y2) / 2  # Compute centroid
+              sperm_data.append([cx, cy, x1, y1, x2, y2, conf, int(label)])  # Store data
+
+          return sperm_data
+
+*3. Tracking Sperm Across Frames*
+
+Tracking is handled using Kalman filters to predict sperm positions and Hungarian algorithm for ID matching.
+
+Step 1: Predict Next Position Using Kalman Filter
+
+We initialize a Kalman filter for each detected sperm to predict its next position.
+
+Code Snippet: Kalman Filter Setup
+
+      import cv2
+
+      def create_kalman_filter():
+          kf = cv2.KalmanFilter(4, 2)
+          kf.measurementMatrix = np.array([[1, 0, 0, 0],
+                                           [0, 1, 0, 0]], np.float32)
+          kf.transitionMatrix = np.array([[1, 0, 1, 0],
+                                          [0, 1, 0, 1],
+                                          [0, 0, 1, 0],
+                                          [0, 0, 0, 1]], np.float32)
+          kf.processNoiseCov = np.eye(4, dtype=np.float32) * 0.03
+          return kf
+
+Step 2: Associate Detections with Existing Tracks
+
+The Hungarian Algorithm is used to associate new detections with existing sperm tracks based on IoU (Intersection over Union).
+
+Code Snippet: IoU Calculation
+
+      def compute_iou(box1, box2):
+          x1, y1, x2, y2 = box1
+          x1p, y1p, x2p, y2p = box2
+
+          xi1 = max(x1, x1p)
+          yi1 = max(y1, y1p)
+          xi2 = min(x2, x2p)
+          yi2 = min(y2, y2p)
+          inter_area = max(0, xi2 - xi1) * max(0, yi2 - yi1)
+
+          box1_area = (x2 - x1) * (y2 - y1)
+          box2_area = (x2p - x1p) * (y2p - y1p)
+          iou = inter_area / (box1_area + box2_area - inter_area)
+    
+          return iou
+
+Step 3: Track Sperm Using Hungarian Algorithm
+
+We assign unique IDs to sperm and update their positions across frames.
+
+Code Snippet: Hungarian Algorithm for ID Assignment
+
+      def assign_ids(sperm_data, trackers):
+          global next_id
+
+          if len(trackers) == 0:
+              for sperm in sperm_data:
+                  kf = create_kalman_filter()
+                  kf.statePre[:2] = np.array([[sperm[0]], [sperm[1]]], np.float32)
+                  trackers[next_id] = {"kf": kf, "box": sperm, "age": 0}
+                  next_id += 1
+          else:
+              existing_ids = list(trackers.keys())
+              existing_boxes = [trackers[tid]["box"] for tid in existing_ids]
+              new_boxes = [sperm[:4] for sperm in sperm_data]
+
+              if existing_boxes and new_boxes:
+                  cost_matrix = np.zeros((len(existing_boxes), len(new_boxes)))
+                  for i, old_box in enumerate(existing_boxes):
+                      for j, new_box in enumerate(new_boxes):
+                          cost_matrix[i, j] = -compute_iou(old_box, new_box)
+
+                  row_ind, col_ind = linear_sum_assignment(cost_matrix)
+
+                  for r, c in zip(row_ind, col_ind):
+                     trackers[existing_ids[r]]["box"] = sperm_data[c]
+
+*4. Visualization*
+
+We draw bounding boxes and trajectories to visualize sperm movement.
+
+Code Snippet: Drawing on Frame
+
+      def draw_tracks(frame, trackers):
+          for tid, data in trackers.items():
+              x1, y1, x2, y2 = data["box"][:4]
+              cx, cy = data["box"][0], data["box"][1]
+
+              # Draw bounding box
+              cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
+
+              # Draw ID label
+              cv2.putText(frame, f"ID: {tid}", (int(cx), int(cy - 10)),
+                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+
+*5. Data Logging*
+
+Tracking data is saved into an Excel file for further analysis.
+
+Code Snippet: Save Data to Excel
+
+      import pandas as pd
+
+      tracking_data = []
+
+      def save_tracking_data(trackers, frame_number):
+          for tid, data in trackers.items():
+              cx, cy = data["box"][0], data["box"][1]
+              tracking_data.append({"Frame": frame_number, "ID": tid, "X": cx, "Y": cy})
+
+      df = pd.DataFrame(tracking_data)
+      df.to_csv("sperm_tracking_data.csv", index=False)
+
+*6. Frame Capture & Saving*
+
+Save frames periodically for analysis.
+
+Code Snippet: Save Frames
+
+      frame_count = 0
+      while cap.isOpened():
+          ret, frame = cap.read()
+          if not ret:
+              break
+
+          sperm_data = detect_sperm(frame)
+          assign_ids(sperm_data, trackers)
+          draw_tracks(frame, trackers)
+
+          if frame_count % 50 == 0:  # Save every 50 frames
+              cv2.imwrite(f"frames/frame_{frame_count}.png", frame)
+
+          save_tracking_data(trackers, frame_count)
+
+          frame_count += 1
+
+Final Outcome
+
+The system detects sperm using YOLO, tracks movement with Kalman filter, assigns IDs using Hungarian algorithm, and logs tracking data.
+Output includes:
+
+1. Tracking visualization with bounding boxes and IDs.
+
+2. CSV file with sperm trajectories.
+
+3. Saved frames for further analysis.
