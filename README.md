@@ -166,7 +166,7 @@ Results would be stored in */home/user/ml_env/runs/detect/Test*
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 With above three steps, we can evaluate the performace of the training with the help of the performance metrics
 
-*1. Graphs*
+*1. Parameters*
 
 Losses: Box loss, Classification loss, DFL loss. Decreasing loss → Model is improving.
 
