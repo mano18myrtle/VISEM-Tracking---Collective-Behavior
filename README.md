@@ -258,9 +258,9 @@ Output:
 
    Annotated images in /Detection/<video_id>/images/
                
-   ![12_frame_73](https://github.com/user-attachments/assets/bf45223e-d2d0-4ea8-94e1-7ce7ba748e2a)   
+   ![52_frame_264](https://github.com/user-attachments/assets/dc337f3d-5898-4472-84ec-7404a25b7eff)
                                                         
-   12_frame_73
+   52_frame_264
 
    Detection results in /Detection/<video_id>/<video_id>.csv
 
