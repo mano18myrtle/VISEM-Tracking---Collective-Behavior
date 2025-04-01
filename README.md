@@ -299,6 +299,8 @@ Requirements
     FilterPy (for Kalman filter)
     Openpyxl (for Excel logging)
 
+Note: Refer velocity.py
+
 *1. Video Processing & Initialization*
 
 Before processing frames, we need to load the video, YOLO model, and initialize tracking structures.
@@ -492,6 +494,8 @@ Output includes:
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Interaction Analysis
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Note: Refer analysis.py
+
 1. Interaction Definition
 
     Proximity Threshold:
@@ -549,6 +553,7 @@ How Close: Edge colors/weights in the network indicate interaction distances.
 Patterns: Class labels allow analysis of interaction preferences (e.g., "Cluster" sperms interacting more).
 
 ## Sperm Interaction Network
+Note: Refer sperm_int_net.py
 
 ![image](https://github.com/user-attachments/assets/486e6046-133b-4c8f-b864-260a9ba92f90)
 
