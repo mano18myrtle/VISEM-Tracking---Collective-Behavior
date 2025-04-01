@@ -555,6 +555,6 @@ Patterns: Class labels allow analysis of interaction preferences (e.g., "Cluster
 ## Sperm Interaction Network
 Note: Refer sperm_int_net.py
 
-![image](https://github.com/user-attachments/assets/486e6046-133b-4c8f-b864-260a9ba92f90)
+![image](https://github.com/user-attachments/assets/3443b1b3-dd46-45e5-939f-239503f6c554)
 
 
