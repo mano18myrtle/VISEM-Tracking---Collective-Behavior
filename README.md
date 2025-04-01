@@ -488,4 +488,68 @@ Output includes:
 3. CSV file with sperm trajectories.
 
 4. Saved frames for further analysis.
-   
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Interaction Analysis
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Interaction Definition
+
+    Proximity Threshold:
+    Two sperms are considered interacting if their distance is below distance_threshold (5 pixels).
+
+       distance_matrix = cdist(positions, positions)  # Pairwise distances
+       if distance_matrix[i, j] < distance_threshold:  # Interaction detected
+
+2. Temporal Dynamics
+
+    Frame-by-Frame Analysis:
+    Interactions are calculated for each frame independently, showing how interaction frequency changes over time.
+
+       frame_counts = interaction_df['frame'].value_counts().sort_index()
+       sns.lineplot(...)  # Interactions per frame plot
+
+3. Interaction Network
+
+    Graph Representation:
+    Sperms are nodes; interactions are edges. Edge weights represent interaction distances.
+
+       G = nx.Graph()
+       G.add_edge(sperm_A, sperm_B, weight=distance)
+
+![Sperm_Interaction_Network](https://github.com/user-attachments/assets/5c78d19d-9928-4218-a3b8-2c7fd478f6eb)
+
+   Network Metrics:
+
+   Node size reflects connection density (G.degree(n)).
+
+   Edge color intensity maps to interaction distance (closer = darker).
+
+4. Class-Based Differentiation
+
+    Sperm Classes Tracked:
+    Each sperm is labeled as "Normal", "Cluster", or "Pinhead" (class_A/class_B in interaction_df).
+
+       interaction_df['class_A'], interaction_df['class_B']
+
+5. Spatial Relationships
+
+    Position Data Used:
+    Uses XY coordinates (X, Y columns) to calculate pairwise distances.
+
+         positions = frame_data[['X', 'Y']].values
+
+How This Explains Sperm Interactions
+
+When/Where: Temporal plot identifies frames with high interaction density.
+
+Who: Network graph shows which specific sperms interact (node connections).
+
+How Close: Edge colors/weights in the network indicate interaction distances.
+
+Patterns: Class labels allow analysis of interaction preferences (e.g., "Cluster" sperms interacting more).
+
+## Sperm Interaction Network
+
+![image](https://github.com/user-attachments/assets/486e6046-133b-4c8f-b864-260a9ba92f90)
+
+
