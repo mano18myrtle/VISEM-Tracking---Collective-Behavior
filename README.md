@@ -557,4 +557,20 @@ Note: Refer sperm_int_net.py
 
 ![image](https://github.com/user-attachments/assets/3443b1b3-dd46-45e5-939f-239503f6c554)
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CASA Metrics
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Note: Refer casa.py
 
+| Parameter | Meaning | Formula / Variable | Unit |
+|-----------|---------|--------------------|------|
+| **VCL (Curvilinear Velocity)** | Speed along the actual path | VCL = sum of segment distances / total time  <br> VCL = Σ sqrt((dx_i)² + (dy_i)²) / Δt | µm/s |
+| **VSL (Straight Line Velocity)** | Speed along the straight line from start to end | VSL = Straight line distance / total time  <br> VSL = sqrt((x_end - x_start)² + (y_end - y_start)²) / Δt | µm/s |
+| **VAP (Average Path Velocity)** | Speed along a smoothed path | Use smoothing (e.g., polynomial fit) over centroids: <br> VAP = smoothed path length / Δt | µm/s |
+| **ALH (Amplitude of Lateral Head Displacement)** | Mean lateral movement amplitude | ALH = mean lateral deviation from VAP | µm |
+| **MAD (Mean Angular Displacement)** | Mean change in angle per frame | MAD = mean(abs(θ_i+1 - θ_i)) | degrees |
+| **LIN (Linearity)** | Linearity of the path | LIN = VSL / VCL | Ratio |
+| **WOB (Wobble)** | Deviation around the average path | WOB = VAP / VCL | Ratio |
+| **STR (Straightness)** | Deviation from straight-line | STR = VSL / VAP | Ratio |
+| **BCF (Beat Cross Frequency)** | Frequency of the sperm head crossing the average path | (Zero-crossings of lateral displacement / time) | Hz |
+| **D (Displacement)** | Net displacement | D = VSL * total time | µm |
