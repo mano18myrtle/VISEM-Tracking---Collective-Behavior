@@ -573,4 +573,4 @@ Note: Refer casa.py
 | **WOB (Wobble)** | Deviation around the average path | WOB = VAP / VCL | Ratio |
 | **STR (Straightness)** | Deviation from straight-line | STR = VSL / VAP | Ratio |
 | **BCF (Beat Cross Frequency)** | Frequency of the sperm head crossing the average path | (Zero-crossings of lateral displacement / time) | Hz |
-| **D (Displacement)** | Net displacement | D = VSL * total time | µm |
+| **D (Fractal Dimension)** | Quantifies the complexity and “space-filling” nature of the sperm trajectory | \( D = \frac{\log(N)}{\log(r)} \), where \( N \) is the number of self-similar segments and \( r \) is the scaling factor | Dimensionless |
